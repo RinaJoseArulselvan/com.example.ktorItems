@@ -5,7 +5,8 @@ import com.example.utils.ErrorCodes
 import com.example.utils.ServiceResult
 
 
-class CheckValidQuantityClass() {
+class CheckValidQuantity() {
+
      operator fun invoke(item: CreateNewItem):ServiceResult<Boolean>{
         return if (item.quantity.endsWith("kg")
                 or (item.quantity.endsWith("mg"))
@@ -14,5 +15,6 @@ class CheckValidQuantityClass() {
         }else
             ServiceResult.Error(ErrorCodes.INVALID_QUANTITY)
     }
+
 
 }
