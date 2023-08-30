@@ -12,5 +12,6 @@ interface ProductDao{
     suspend fun getAllItems():ServiceResult<List<Item?>>
     suspend fun updateItem(item: UpdateItemModel):ServiceResult<Int>
     suspend fun deleteItem(itemName: String):ServiceResult<Int>
+    suspend fun checkItemExists(name:String):ServiceResult<Boolean>
 
 }
