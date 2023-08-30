@@ -106,4 +106,23 @@ class ProductDaoImpl : ProductDao {
             ServiceResult.Error(ErrorCodes.UNKNOWN_ERROR)
         }
     }
+
+      override suspend fun checkItemExists(name: String): ServiceResult<Boolean> {
+        return try {
+            val dbResult = dbQuery {
+                ItemsEntity.select {
+                    ItemsEntity.name eq name
+                }.map(::resultRowToItem)
+            }
+            if (dbResult.isNotEmpty()){
+                ServiceResult.Success(true)
+            }else {
+                ServiceResult.Error(ErrorCodes.ITEM_NOTFOUND)
+            }
+        }catch(e: SQLDataException){
+            ServiceResult.Error(ErrorCodes.DATABASE_ERROR)
+        }catch (e: Exception){
+            ServiceResult.Error(ErrorCodes.UNKNOWN_ERROR)
+        }
+    }
 }
